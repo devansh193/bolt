@@ -1,0 +1,25 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model File {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  originalName String
+  fileName     String
+  fileType     String
+  fileSize     Int
+  downloadLink String    @unique
+  uploadedAt   DateTime  @default(now())
+  expiresAt    DateTime?
+}
+
+model TextData {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  text      String
+  createdAt DateTime @default(now())
+}
